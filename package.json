@@ -1,0 +1,21 @@
+{
+	"name": "manim",
+	"private": true,
+	"packageManager": "pnpm@9.15.1",
+	"workspaces": [
+		"packages/*",
+		"docs",
+		"test"
+	],
+	"scripts": {
+		"packages:build": "pnpm --filter \"./packages/**\" build",
+		"core:build": "pnpm --filter @rbxts/manim build",
+		"core:dev": "pnpm --filter @rbxts/manim dev",
+		"ui:build": "pnpm --filter @rbxts/manim-ui build",
+		"ui:dev": "pnpm --filter @rbxts/manim-ui dev",
+		"test:build": "pnpm --filter test build",
+		"test:dev": "pnpm --filter test dev",
+		"serve": "cd test && rojo serve"
+	},
+	"devDependencies": {}
+}

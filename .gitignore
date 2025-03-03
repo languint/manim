@@ -1,0 +1,15 @@
+node_modules/
+
+# roblox-ts
+out/
+include/
+*.tsbuildinfo
+*.rbxl
+*.rbxlx
+
+# docs
+dist/
+.astro/
+
+# macOS-specific files
+.DS_Store

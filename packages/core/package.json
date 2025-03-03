@@ -1,0 +1,30 @@
+{
+    "name": "@rbxts/manim",
+    "description": "A flexible math animation library.",
+    "version": "1.0.0",
+    "license": "MIT",
+    "main": "out/init.lua",
+    "types": "out/index.d.ts",
+    "files": [
+        "out",
+        "!**/*.tsbuildinfo",
+        "!**/__tests__"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "prepack": "pnpm build",
+        "build": "shx rm -rf out && rbxtsc --verbose",
+        "dev": "shx rm -rf out && rbxtsc -w"
+    },
+    "devDependencies": {
+        "@rbxts/compiler-types": "^3.0.0-types.0",
+        "@rbxts/services": "1.5.5",
+        "roblox-ts": "3.0.0",
+        "shx": "^0.3.4",
+        "typescript": "=5.5.3"
+    },
+    "dependencies": {
+    }
+}

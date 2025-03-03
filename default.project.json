@@ -1,0 +1,50 @@
+{
+	"name": "manim",
+	"globIgnorePaths": ["**/package.json", "**/tsconfig.json", "**/*/@rbxts/manim"],
+	"tree": {
+		"$className": "DataModel",
+		"ReplicatedStorage": {
+			"$className": "ReplicatedStorage",
+			"rbxts_include": {
+				"$path": "test/include",
+				"node_modules": {
+					"$className": "Folder",
+					"@rbxts": {
+						"$path": "packages/core/node_modules/@rbxts",
+						"manim": {
+							"$className": "Folder",
+							"out": {
+								"$path": "packages/core/out"
+							}
+						}
+					}
+				}
+			},
+			"TS": {
+				"$path": "test/out/shared"
+			}
+		},
+		"ServerScriptService": {
+			"$className": "ServerScriptService",
+			"TS": {
+				"$path": "test/out/server"
+			}
+		},
+		"StarterPlayer": {
+			"$className": "StarterPlayer",
+			"StarterPlayerScripts": {
+				"$className": "StarterPlayerScripts",
+				"TS": {
+					"$path": "test/out/client"
+				}
+			}
+		},
+		"TestService": {
+			"$className": "TestService",
+			"$properties": {
+				"ExecuteWithStudioRun": true
+			},
+			"$path": "test/out/test"
+		}
+	}
+}
