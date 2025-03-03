@@ -1,6 +1,7 @@
 import { RunService } from "@rbxts/services";
 import { MObject } from "../object/mobject";
 import { util } from "../util";
+import { Registry } from "../registry";
 
 /**
  * @name Ticker
@@ -8,16 +9,16 @@ import { util } from "../util";
  */
 export function Ticker() {
 	return (ctor: object) => {
-		if (!(ctor instanceof MObject)) {
+		if (!(ctor as MObject).tick) {
 			util.logDebug(
-				`Manim::Decorators::Ticker(): Cannot decorate ${ctor} with Ticker(), instance is not a MObject!`,
+				`Manim::Decorators::Ticker(): Cannot decorate ${ctor} with Ticker(), instance does not contain a tick() function!`,
 				"info",
 				true,
 			);
 			return;
 		} else {
 			util.logDebug(`Manim::Decorators::Ticker(): Decorated ${ctor} with Ticker().`, "verbose");
-			RunService.Heartbeat.Connect(() => (ctor as MObject).tick());
+			Registry.setTicker(`${ctor}`, ctor as MObject);
 		}
 	};
 }

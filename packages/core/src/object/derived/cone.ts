@@ -1,5 +1,4 @@
 import { Colors } from "../../colors";
-import { Ticker } from "../../decorators";
 import { util } from "../../util";
 import { MObject, MObjectAttributes } from "../mobject";
 
@@ -11,15 +10,13 @@ export type ConeAttributes = {
 } & MObjectAttributes;
 
 export class Cone extends MObject<ConeAttributes> {
-	__name = "Cone";
-
 	private cone: ConeHandleAdornment;
 
 	construct(): void {
 		if (!this.getOutputInstance()) {
 			util.logDebug("Manim::Cone::construct(): Output instance is undefined!", "verbose", false);
 		}
-        
+
 		const cone = new Instance("ConeHandleAdornment");
 		cone.Radius = this.params.Radius ?? 0.25;
 		cone.Height = this.params.Height ?? 1;
@@ -36,10 +33,16 @@ export class Cone extends MObject<ConeAttributes> {
 	}
 
 	tick(): void {
-        this.cone.Radius = this.params.Radius ?? 0.25;
+		if (!this.cone) return;
+		this.cone.Radius = this.params.Radius ?? 0.25;
 		this.cone.Height = this.params.Height ?? 1;
 		this.cone.Color3 = this.params.Color ?? Colors.WHITE;
 		this.cone.Adornee = this.getOutputInstance() as PVInstance | undefined;
 		this.cone.Parent = this.getOutputInstance();
-    }
+	}
+
+	constructor(params: ConeAttributes) {
+		super();
+		this.params = params;
+	}
 }

@@ -1,6 +1,6 @@
 import { TweenService } from "@rbxts/services";
 import { util } from "../../util";
-import { Scene } from "./scene";
+import { Scene, SceneAttributes } from "./scene";
 
 export abstract class SceneWithCamera extends Scene {
 	private camera: Camera | undefined;

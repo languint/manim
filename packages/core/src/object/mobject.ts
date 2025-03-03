@@ -8,8 +8,6 @@ export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
 	/**@hidden @internal */
 	public __enabled: boolean = true;
 	/**@hidden @internal */
-	public __name: string = "scene";
-	/**@hidden @internal */
 	public __children: Map<string, MObject> = new Map();
 	/**@hidden @internal */
 	public __outputInstance: Instance | undefined;
@@ -20,16 +18,13 @@ export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
 
 	public params: T;
 
-	constructor(params: T, instance?: Instance) {
-		this.params = params;
-		this.__outputInstance = instance;
-	}
-
-	addChild(name: string, child: MObject) {
-		this.__children.set(name, child);
+	addChild<T extends MObjectAttributes = MObjectAttributes>(name: string, child: MObject<T>) {
+		this.__children.set(name, child as MObject<T>);
+		child.__parent = this;
 	}
 
 	removeChild(name: string) {
+		this.__children.get(name)?.destroy();
 		this.__children.delete(name);
 	}
 
@@ -38,7 +33,11 @@ export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
 	}
 
 	getOutputInstance(): Instance | undefined {
-		return this.__outputInstance;
+		if (this.__parent) {
+			return this.__parent.getOutputInstance();
+		} else {
+			return this.__outputInstance;
+		}
 	}
 
 	/**
@@ -51,7 +50,7 @@ export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
 	 * @description Updates the mobject.
 	 * @description Use Ticker() to automatically call this function on RunService.Heartbeat()
 	 */
-	abstract tick(): void;
+	abstract tick(dt: number): void;
 
 	/**
 	 * @name _construct
@@ -61,7 +60,7 @@ export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
 	 */
 	_construct(): void {
 		if (!this.__enabled) {
-			util.logDebug(`Manim::MObject::_construct() -- MObject "${this.__name}" is disabled, skipping.`, "verbose");
+			util.logDebug(`Manim::MObject::_construct() -- MObject "${this}" is disabled, skipping.`, "verbose");
 			return;
 		}
 
@@ -75,18 +74,18 @@ export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
 	 * @hidden
 	 * @internal
 	 */
-	_tick(): void {
+	_tick(dt: number): void {
 		if (!this.__enabled) return;
-		this.tick();
+		this.tick(dt);
 	}
 
-    /**
-     * @name tickAllChildren
-     * @description Recursively ticks all child MObjects of this object.
-     */
-    tickAllChildren() {
-        this.__children.forEach((child) => child.tick());
-    }
+	/**
+	 * @name tickAllChildren
+	 * @description Recursively ticks all child MObjects of this object.
+	 */
+	tickAllChildren(dt: number) {
+		this.__children.forEach((child) => child.tick(dt));
+	}
 
 	destroy() {
 		util.logDebug("Manim::MObject::destroy(): Destroying!", "verbose");
