@@ -9,6 +9,9 @@
         "out",
         "!**/*.tsbuildinfo"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "prepack": "pnpm build",
         "build": "shx rm -rf out && rbxtsc --verbose",
