@@ -8,7 +8,7 @@ import { util } from "../util";
 export function Disabled() {
 	return (ctor: object) => {
 		if (ctor instanceof MObject) {
-			ctor.__enabled = false;
+			(ctor as MObject).__enabled = false;
 		} else {
 			util.logDebug(`Manim::Decorators::Disabled: Cannot disable ${ctor}, it is not of class MObject`, "info", true);
 		}

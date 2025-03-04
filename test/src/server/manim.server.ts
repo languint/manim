@@ -1,5 +1,4 @@
 import { Manim, ObjectTypes } from "@rbxts/manim";
-import { VectorAttributes } from "@rbxts/manim/out/object";
 import { Workspace } from "@rbxts/services";
 
 @Manim.Decorators.Scene(
@@ -12,27 +11,13 @@ import { Workspace } from "@rbxts/services";
 @Manim.Decorators.Ticker()
 export class VectorTestScene extends Manim.SceneWithCamera {
 	construct(): void {
-		const vector = new Manim.Objects.Vector({
-			Origin: new CFrame(0, 0, 0),
-			CFrame: new CFrame(0, 0, 0),
-			Color: Manim.Colors.RED_E,
+		const axes = new Manim.Objects.Axes({
+			Sizes: [10, 10, 10],
 		});
 
-		const vector2 = new Manim.Objects.Vector({
-			Origin: new CFrame(0, 0, 0),
-			CFrame: new CFrame(0, 0, 0),
-			Color: Manim.Colors.YELLOW_E,
+		this.add({
+			axes: axes,
 		});
-
-		const vector3 = new Manim.Objects.Vector({
-			Origin: new CFrame(0, 0, 0),
-			CFrame: new CFrame(0, 0, 0),
-			Color: Manim.Colors.BLUE_E,
-		});
-
-		this.addChild("vector", vector);
-		this.addChild("vector2", vector2);
-		this.addChild("vector3", vector3);
 	}
 
 	tick(dt: number): void {

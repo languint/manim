@@ -11,10 +11,26 @@ export abstract class Scene extends MObject<SceneAttributes> {
 	 * @description Adds all given child MObjects to the scene.
 	 * @param args
 	 */
-	add(...args: { name: string; obj: MObject }[]): void {
-		args.forEach((obj) => {
-			this.addChild(obj.name, obj.obj);
-		});
+	add(objs: { [k: string]: MObject }): void {
+		for (const [name, obj] of pairs(objs)) {
+			this.addChild(tostring(name), obj);
+		}
+	}
+
+	/**
+	 * @name get
+	 * @description Returns name-value pairs of the given objects.
+	 * @param objs
+	 * @returns 
+	 */
+	get(objs: string[]) {
+		const children = [];
+
+		for (const name of objs) {
+			children.push([name, this.getChild(name)]);
+		}
+
+		return children;
 	}
 
 	tick(dt: number) {
