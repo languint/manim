@@ -1,4 +1,4 @@
-import { Manim, ObjectTypes } from "@rbxts/manim";
+import { Manim } from "@rbxts/manim";
 import { Workspace } from "@rbxts/services";
 
 @Manim.Decorators.Scene(

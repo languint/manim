@@ -10,7 +10,7 @@ import { RunService } from "@rbxts/services";
 import { util } from "./util";
 
 export namespace Manim {
-	export const VERSION = "0.0.2";
+	export const VERSION = "0.0.4";
 	export const CONFIG = MANIM_CONFIG;
 
 	export const Objects = objs;
