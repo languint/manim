@@ -3,6 +3,7 @@
     "description": "A flexible math animation library.",
     "version": "1.0.0",
     "license": "MIT",
+    "author": "longuint-rbx",
     "main": "out/init.lua",
     "types": "out/index.d.ts",
     "files": [
