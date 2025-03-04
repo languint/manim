@@ -21,15 +21,16 @@ export class Cone extends MObject<ConeAttributes> {
 		cone.Radius = this.params.Radius ?? 0.25;
 		cone.Height = this.params.Height ?? 1;
 		cone.Color3 = this.params.Color ?? Colors.WHITE;
+		cone.Visible = this.params.Visible ?? true;
 		cone.Adornee = this.getOutputInstance() as PVInstance | undefined;
 		cone.Parent = this.getOutputInstance();
 
 		this.cone = cone;
 	}
 
-	setNative(prop: keyof WritableInstanceProperties<ConeHandleAdornment>, value: never) {
+	setNative(prop: keyof WritableInstanceProperties<ConeHandleAdornment>, value: unknown) {
 		if (!this.cone) return;
-		this.cone[prop] = value;
+		this.cone[prop] = value as never;
 	}
 
 	tick(): void {

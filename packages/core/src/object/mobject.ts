@@ -1,7 +1,7 @@
 import { util } from "../util";
 
 export interface MObjectAttributes {
-	visible: boolean;
+	Visible?: boolean;
 }
 
 export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
@@ -28,8 +28,8 @@ export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
 		this.__children.delete(name);
 	}
 
-	getChild(name: string): MObject | undefined {
-		return this.__children.get(name);
+	getChild<T extends MObjectAttributes = MObjectAttributes>(name: string): MObject<T> | undefined {
+		return this.__children.get(name) as MObject<T>;
 	}
 
 	getOutputInstance(): Instance | undefined {
@@ -91,5 +91,9 @@ export abstract class MObject<T extends MObjectAttributes = MObjectAttributes> {
 		util.logDebug("Manim::MObject::destroy(): Destroying!", "verbose");
 		this.__children.forEach((child) => child.destroy());
 		this.getOutputInstance()?.Destroy();
+	}
+
+	setParam(key: keyof T, value: unknown) {
+		this.params![key] = value as never;
 	}
 }

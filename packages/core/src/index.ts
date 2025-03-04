@@ -7,6 +7,7 @@ import * as registry from "./registry";
 import * as objs from "./object";
 
 import { RunService } from "@rbxts/services";
+import { util } from "./util";
 
 export namespace Manim {
 	export const VERSION = "0.0.2";
@@ -21,6 +22,8 @@ export namespace Manim {
 	export const SceneWithCamera = scene.SceneWithCamera;
 
 	export function init() {
+		util.logDebug(`Manim::init() Registering ${Registry.getAllScenes().size()} scenes, and ${Registry.getAllTickers().size()} tickers.`);
+
 		Registry.getAllScenes().forEach((scene) => {
 			scene._construct();
 		});
@@ -30,3 +33,5 @@ export namespace Manim {
 		});
 	}
 }
+
+export * from "./object/types";

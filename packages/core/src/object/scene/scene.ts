@@ -16,4 +16,8 @@ export abstract class Scene extends MObject<SceneAttributes> {
 			this.addChild(obj.name, obj.obj);
 		});
 	}
+
+	tick(dt: number) {
+		this.tickAllChildren(dt);
+	}
 }

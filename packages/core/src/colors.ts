@@ -53,4 +53,40 @@ export const Colors = {
     LIGHT_PINK: Color3.fromHex("#DC75CD"),
     GREEN_SCREEN: Color3.fromHex("#00FF00"),
     ORANGE: Color3.fromHex("#FF862F"),
+    colorGradient(colors: Color3[], n: number): Color3[] {
+        if (n === 0) return [];
+    
+        const alphas = linearSpace(0, 1, n);
+        const result: Color3[] = [];
+    
+        for (let i = 0; i < n; i++) {
+            const alpha = alphas[i];
+            const idx = math.floor(alpha * (colors.size() - 1));
+            const f = alpha * (colors.size() - 1) - idx;
+    
+            const col1 = colors[idx];
+            const col2 = colors[math.min(idx + 1, colors.size() - 1)];
+    
+            const r = math.sqrt((1 - f) * (col1.R * col1.R) + f * (col2.R * col2.R));
+            const g = math.sqrt((1 - f) * (col1.G * col1.G) + f * (col2.G * col2.G));
+            const b = math.sqrt((1 - f) * (col1.B * col1.B) + f * (col2.B * col2.B));
+    
+            result.push(new Color3(r, g, b));
+        }
+    
+        return result;
+    }
+}
+
+function linearSpace(start: number, stop: number, num: number) {
+    const arr: number[] = [];
+    if (num === 1) {
+        arr.push(start);
+    } else {
+        const step = (stop - start) / (num - 1);
+        for (let i = 0; i < num; i++) {
+            arr.push(start + i * step);
+        }
+    }
+    return arr;
 }

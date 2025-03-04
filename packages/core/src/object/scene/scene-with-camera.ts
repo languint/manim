@@ -38,4 +38,8 @@ export abstract class SceneWithCamera extends Scene {
 	setCamera(camera: Camera) {
 		this.camera = camera;
 	}
+
+	tick(dt: number) {
+		this.tickAllChildren(dt);
+	}
 }
